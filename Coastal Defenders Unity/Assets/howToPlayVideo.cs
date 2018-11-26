@@ -20,7 +20,7 @@ public class howToPlayVideo : MonoBehaviour
 
     public RawImage image;
     public string sceneToLoad;
-    public scrollingText scrollText;
+    public Text subtitles;
 
     public UnityEngine.Video.VideoPlayer videoPlayer;
     private VideoSource videoSource;
@@ -53,8 +53,6 @@ public class howToPlayVideo : MonoBehaviour
         //Assign the Texture from Video to RawImage to be displayed
         image.texture = videoPlayer.texture;
 
-
-
         //Play Video
         videoPlayer.Play();
 
@@ -62,9 +60,9 @@ public class howToPlayVideo : MonoBehaviour
         //image.color = new Color(255.0f, 255.0f, 255.0f, 1f);
 
         Debug.Log("Playing Video");
-        while (videoPlayer.isPlaying || !scrollText.doneScroll)
+        while (videoPlayer.isPlaying || !subtitles.GetComponent<subtitleTiming>().textComplete)
         {
-            Debug.Log(scrollText.doneScroll);
+            Debug.Log(subtitles.GetComponent<subtitleTiming>().textComplete);
             //Debug.LogWarning("Video Time: " + Mathf.FloorToInt((float)videoPlayer.time));
             yield return null;
         }
