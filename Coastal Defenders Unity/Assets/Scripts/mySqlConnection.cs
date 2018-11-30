@@ -6,7 +6,7 @@ using UnityEngine.UI;
 public class mySqlConnection : MonoBehaviour {
 
     // Use this for initialization
-    public string url = "localhost:3306/comp585/scores";
+    public string url = "localhost:4000/leaderboard/scores";
     public ScoreEntry[] scoreEntries;
     public Button yourButton;
 
