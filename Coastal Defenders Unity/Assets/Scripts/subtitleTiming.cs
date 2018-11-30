@@ -21,9 +21,9 @@ public class subtitleTiming : MonoBehaviour {
         textBox.GetComponent<Text>().text = "It causes damage to property, \n ecosystems, injuries, and even deaths.";
         yield return new WaitForSeconds(5);
         textBox.GetComponent<Text>().text = "But, with a combination of solutions, \n we may be able to lessen their effects.";
-        yield return new WaitForSeconds(5);
+        yield return new WaitForSeconds(4);
         textBox.GetComponent<Text>().text = "How much of the coast can you save?";
-        yield return new WaitForSeconds(2);
+        yield return new WaitForSeconds(3);
         textBox.GetComponent<Text>().text = "";
         textComplete = true;
     }
