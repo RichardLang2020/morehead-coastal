@@ -598,7 +598,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 799.8113, y: 1421.8867}
+  m_SizeDelta: {x: 800, y: 1422}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &836193057
 MonoBehaviour:
@@ -1239,6 +1239,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   image: {fileID: 1678346306}
   videoPlayer: {fileID: 1678346308}
+  audioSource: {fileID: 0}
 --- !u!1 &1739217399
 GameObject:
   m_ObjectHideFlags: 0
