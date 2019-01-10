@@ -17,6 +17,9 @@ public class eventController : MonoBehaviour {
     private bool canContinue;
     private GameObject[] sectionArray;
     private List<GameObject> currentlyActive;
+    private bool seenNatural;
+    private bool seenManMade;
+    private bool firstChange;
 
     void Start () {
         canContinue = false;
@@ -25,6 +28,9 @@ public class eventController : MonoBehaviour {
         sectionArray[1] = middleSection;
         sectionArray[2] = lowerSection;
         currentlyActive = new List<GameObject>();
+        seenNatural = false;
+        seenManMade = false;
+        firstChange = true;
 
         for(int i = 0; i < sectionArray.Length; i++) {
             Debug.Log("Section " + i + ": " + sectionArray[i]);
@@ -39,7 +45,14 @@ public class eventController : MonoBehaviour {
             }
         }
 
-        for(int i = 0; i < currentlyActive.Count; i++) {
+        Debug.Log(getChildren(upperSection)[0]);
+        Debug.Log(getChildren(upperSection)[0].activeInHierarchy);
+        Debug.Log(getChildren(upperSection)[1]);
+        Debug.Log(getChildren(upperSection)[1].activeInHierarchy);
+
+        //Debug.Log(upperSection[1]);
+
+        /*for(int i = 0; i < currentlyActive.Count; i++) {
             Debug.Log("The GameObject " + currentlyActive[i] + " is currently active!");
 
             Debug.Log("We're going to try removing that GameObject now - give us a second");
@@ -48,7 +61,7 @@ public class eventController : MonoBehaviour {
             Debug.Log("Did it work?");
             StartCoroutine(StallTime(5));
             Debug.Log("Onwards to the next one!");
-        }
+        }*/
 
         /*
         middleSection = canvas.transform.GetChild(2).gameObject;
@@ -82,5 +95,106 @@ public class eventController : MonoBehaviour {
     // Stalls for a given amount of time
     IEnumerator StallTime(int t) {
         yield return new WaitForSeconds(t);
+    }
+
+    public void ShowSandDuneInfo() {
+        onlyShowChild(upperSection, 1);
+        if(firstChange) {
+            firstChange = false;
+            onlyShowChild(middleSection, 1);
+        }
+        seenNatural = true;
+        if(ableToContinue()) {
+            activateContinue();
+        }
+    }
+    public void ShowSeaGrassInfo()
+    {
+        onlyShowChild(upperSection, 2);
+        if (firstChange)
+        {
+            firstChange = false;
+            onlyShowChild(middleSection, 1);
+        }
+        seenNatural = true;
+        if (ableToContinue())
+        {
+            activateContinue();
+        }
+    }
+    public void ShowOysterReefInfo()
+    {
+        onlyShowChild(upperSection, 3);
+        if (firstChange)
+        {
+            firstChange = false;
+            onlyShowChild(middleSection, 1);
+        }
+        seenNatural = true;
+        if (ableToContinue())
+        {
+            activateContinue();
+        }
+    }
+    public void ShowFloodgateInfo()
+    {
+        onlyShowChild(upperSection, 4);
+        if (firstChange)
+        {
+            firstChange = false;
+            onlyShowChild(middleSection, 1);
+        }
+        seenManMade = true;
+        if (ableToContinue())
+        {
+            activateContinue();
+        }
+    }
+    public void ShowBulkheadInfo()
+    {
+        onlyShowChild(upperSection, 5);
+        if (firstChange)
+        {
+            firstChange = false;
+            onlyShowChild(middleSection, 1);
+        }
+        seenManMade = true;
+        if (ableToContinue())
+        {
+            activateContinue();
+        }
+    }
+
+    private void onlyShowChild(GameObject section, int childNumber)
+    {
+        GameObject[] sectionChildren = getChildren(section);
+
+        if (childNumber >= sectionChildren.Length)
+        {
+            Debug.Log("You're trying to access a child that doesn't exist!");
+        }
+
+        for (int i = 0; i < sectionChildren.Length; i++)
+        {
+            if (sectionChildren[i].activeInHierarchy)
+            {
+                sectionChildren[i].SetActive(false);
+            }
+        }
+        sectionChildren[childNumber].SetActive(true);
+    }
+
+    private bool ableToContinue() {
+        return seenNatural && seenManMade;
+    }
+
+    private void activateContinue() {
+        GameObject[] lowerChildren = getChildren(lowerSection);
+        GameObject[] buttons = getChildren(lowerChildren[0]);
+        GameObject grayButton = buttons[5];
+        GameObject redButton = buttons[6];
+
+        grayButton.SetActive(false);
+        redButton.SetActive(true);
     }
 }
