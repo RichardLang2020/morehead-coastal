@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
 public class eventController : MonoBehaviour {
@@ -22,6 +23,7 @@ public class eventController : MonoBehaviour {
     private bool seenManMade;
     private bool firstChange;
     private GameObject elementHighlights;
+    private int difficulty;
 
     void Start () {
         canContinue = false;
@@ -34,8 +36,12 @@ public class eventController : MonoBehaviour {
         seenManMade = false;
         firstChange = true;
         elementHighlights = getChildren(lowerSection)[1];
+        difficulty = Random.Range(1, 4);
+        Debug.Log("We're about to call diff.setup");
+        DifficultySetup();
+        Debug.Log("We've finished calling diff.setup");
 
-        for(int i = 0; i < sectionArray.Length; i++) {
+        /*for(int i = 0; i < sectionArray.Length; i++) {
             Debug.Log("Section " + i + ": " + sectionArray[i]);
 
             GameObject[] sectionChildren = getChildren(sectionArray[i]);
@@ -51,7 +57,7 @@ public class eventController : MonoBehaviour {
         Debug.Log(getChildren(upperSection)[0]);
         Debug.Log(getChildren(upperSection)[0].activeInHierarchy);
         Debug.Log(getChildren(upperSection)[1]);
-        Debug.Log(getChildren(upperSection)[1].activeInHierarchy);
+        Debug.Log(getChildren(upperSection)[1].activeInHierarchy);*/
 
         //Debug.Log(upperSection[1]);
 
@@ -191,5 +197,30 @@ public class eventController : MonoBehaviour {
 
         grayButton.SetActive(false);
         redButton.SetActive(true);
+    }
+
+    private void DifficultySetup() {
+        GameObject[] upperChildren = getChildren(upperSection);
+        GameObject[] defaultElements = getChildren(upperChildren[0]);
+        GameObject warningText = defaultElements[1];
+        string warning = "";
+        switch(difficulty) {
+            case 1:
+                warning = "Category 1 hurricane to hit NC coast";
+                break;
+
+            case 2:
+                warning = "Category 3 hurricane to hit NC coast";
+                break;
+
+            case 3:
+                warning = "Category 5 hurricane to hit NC coast";
+                break;
+        }
+
+        Debug.Log("Our random number generator returned difficulty " + difficulty);
+        Debug.Log("This translates to the warning '" + warning + "'");
+
+        warningText.GetComponent<Text>().text = warning;
     }
 }
