@@ -11,10 +11,10 @@ public class gameInit : MonoBehaviour {
     {
         KeyboardController.slideDisable = true;
         Debug.Log("DIFFICULTY");
-        Debug.Log(DiffController.levelselect);
+        Debug.Log(eventController.GetDifficulty());
         points = GameObject.FindGameObjectWithTag("Points").GetComponent<PointsController>();
         solutionList = this.gameObject.GetComponentsInChildren<SolutionController>();
-        switch(DiffController.levelselect)
+        switch(eventController.GetDifficulty())
         {
             case 1:
                 points.pointsCount = 230;

@@ -66,15 +66,17 @@ public class gameEnd : MonoBehaviour {
             videoPlayer.clip = videoClips[2];
         }
 
-        if(DiffController.levelselect == 1)
-        {
-            hurricanePlayer.clip = hurricanePath[0];
-        } else if(DiffController.levelselect == 2)
-        {
-            hurricanePlayer.clip = hurricanePath[1];
-        } else if(DiffController.levelselect == 3)
-        {
-            hurricanePlayer.clip = hurricanePath[2];
+        
+        switch(eventController.GetDifficulty()) {
+            case 1:
+                hurricanePlayer.clip = hurricanePath[0];
+                break;
+            case 2:
+                hurricanePlayer.clip = hurricanePath[1];
+                break;
+            case 3:
+                hurricanePlayer.clip = hurricanePath[2];
+                break;
         }
         videoPlayer.Prepare();
         hurricanePlayer.Prepare();

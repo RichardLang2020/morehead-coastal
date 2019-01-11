@@ -18,7 +18,7 @@ public class learnMoreController : MonoBehaviour {
     public Text lives;
 	// Use this for initialization
 	void Start () {
-        if (DiffController.levelselect == 1)
+        if (eventController.GetDifficulty() == 1)
         {
             hurricaneName.text = "Hurricane Matthew";
             date.text = "October 8, 2016";
@@ -30,7 +30,7 @@ public class learnMoreController : MonoBehaviour {
             lives.text = "26";
             image.sprite = images[0];
         }
-        else if (DiffController.levelselect == 2)
+        else if (eventController.GetDifficulty() == 2)
         {
             hurricaneName.text = "Hurricane Floyd";
             date.text = "September 16, 1999";
@@ -42,7 +42,7 @@ public class learnMoreController : MonoBehaviour {
             lives.text = "51";
             image.sprite = images[1];
         }
-        else if (DiffController.levelselect == 3)
+        else if (eventController.GetDifficulty() == 3)
         {
             hurricaneName.text = "Hurricane Fran";
             date.text = "September 5, 1996";

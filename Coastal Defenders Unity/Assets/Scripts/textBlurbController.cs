@@ -10,7 +10,7 @@ public class textBlurbController : MonoBehaviour {
     public Sprite[] buttons = new Sprite[3];
 	// Use this for initialization
 	void Start () {
-		switch(DiffController.levelselect)
+		switch(eventController.GetDifficulty())
         {
             case 1:
                 button.sprite = buttons[0];

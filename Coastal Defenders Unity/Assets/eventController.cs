@@ -23,7 +23,7 @@ public class eventController : MonoBehaviour {
     private bool seenManMade;
     private bool firstChange;
     private GameObject elementHighlights;
-    private int difficulty;
+    private static int difficulty;
 
     void Start () {
         canContinue = false;
@@ -35,7 +35,7 @@ public class eventController : MonoBehaviour {
         seenNatural = false;
         seenManMade = false;
         firstChange = true;
-        elementHighlights = getChildren(lowerSection)[1];
+        elementHighlights = GetChildren(lowerSection)[1];
         difficulty = Random.Range(1, 4);
         Debug.Log("We're about to call diff.setup");
         DifficultySetup();
@@ -89,17 +89,6 @@ public class eventController : MonoBehaviour {
     void Update () {
 		
 	}
-
-    // Returns all immediate children for a given GameObject
-    GameObject[] getChildren(GameObject g) {
-        GameObject[] output = new GameObject[g.transform.childCount];
-        
-        for(int i = 0; i < output.Length; i++) {
-            output[i] = g.transform.GetChild(i).gameObject;
-        }
-
-        return output;
-    }
 
     // Stalls for a given amount of time
     IEnumerator StallTime(int t) {
@@ -166,12 +155,31 @@ public class eventController : MonoBehaviour {
             ActivateContinue();
         }
     }
+
     public void NextScreen() {
         SceneManager.LoadScene("game");
     }
 
+    public static int GetDifficulty() {
+        return difficulty;
+    }
+
+    // Returns all immediate children for a given GameObject
+    private GameObject[] GetChildren(GameObject g)
+    {
+        GameObject[] output = new GameObject[g.transform.childCount];
+
+        for (int i = 0; i < output.Length; i++)
+        {
+            output[i] = g.transform.GetChild(i).gameObject;
+        }
+
+        return output;
+    }
+
+    // Hides all other children of a given GameObject, and only shows the specified child
     private void OnlyShowChild(GameObject section, int childNumber) {
-        GameObject[] sectionChildren = getChildren(section);
+        GameObject[] sectionChildren = GetChildren(section);
 
         if (childNumber >= sectionChildren.Length) {
             Debug.Log("You're trying to access a child that doesn't exist!");
@@ -190,8 +198,8 @@ public class eventController : MonoBehaviour {
     }
 
     private void ActivateContinue() {
-        GameObject[] lowerChildren = getChildren(lowerSection);
-        GameObject[] buttons = getChildren(lowerChildren[0]);
+        GameObject[] lowerChildren = GetChildren(lowerSection);
+        GameObject[] buttons = GetChildren(lowerChildren[0]);
         GameObject grayButton = buttons[5];
         GameObject redButton = buttons[6];
 
@@ -200,8 +208,8 @@ public class eventController : MonoBehaviour {
     }
 
     private void DifficultySetup() {
-        GameObject[] upperChildren = getChildren(upperSection);
-        GameObject[] defaultElements = getChildren(upperChildren[0]);
+        GameObject[] upperChildren = GetChildren(upperSection);
+        GameObject[] defaultElements = GetChildren(upperChildren[0]);
         GameObject warningText = defaultElements[1];
         string warning = "";
         switch(difficulty) {
