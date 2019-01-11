@@ -20,6 +20,7 @@ public class eventController : MonoBehaviour {
     private bool seenNatural;
     private bool seenManMade;
     private bool firstChange;
+    private GameObject elementHighlights;
 
     void Start () {
         canContinue = false;
@@ -31,6 +32,7 @@ public class eventController : MonoBehaviour {
         seenNatural = false;
         seenManMade = false;
         firstChange = true;
+        elementHighlights = getChildren(lowerSection)[1];
 
         for(int i = 0; i < sectionArray.Length; i++) {
             Debug.Log("Section " + i + ": " + sectionArray[i]);
@@ -99,6 +101,7 @@ public class eventController : MonoBehaviour {
 
     public void ShowSandDuneInfo() {
         onlyShowChild(upperSection, 1);
+        onlyShowChild(elementHighlights, 0);
         if(firstChange) {
             firstChange = false;
             onlyShowChild(middleSection, 1);
@@ -111,6 +114,7 @@ public class eventController : MonoBehaviour {
     public void ShowSeaGrassInfo()
     {
         onlyShowChild(upperSection, 2);
+        onlyShowChild(elementHighlights, 1);
         if (firstChange)
         {
             firstChange = false;
@@ -125,6 +129,7 @@ public class eventController : MonoBehaviour {
     public void ShowOysterReefInfo()
     {
         onlyShowChild(upperSection, 3);
+        onlyShowChild(elementHighlights, 2);
         if (firstChange)
         {
             firstChange = false;
@@ -139,6 +144,7 @@ public class eventController : MonoBehaviour {
     public void ShowFloodgateInfo()
     {
         onlyShowChild(upperSection, 4);
+        onlyShowChild(elementHighlights, 3);
         if (firstChange)
         {
             firstChange = false;
@@ -153,6 +159,7 @@ public class eventController : MonoBehaviour {
     public void ShowBulkheadInfo()
     {
         onlyShowChild(upperSection, 5);
+        onlyShowChild(elementHighlights, 4);
         if (firstChange)
         {
             firstChange = false;
