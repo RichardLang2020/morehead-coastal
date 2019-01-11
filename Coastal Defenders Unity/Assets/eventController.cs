@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class eventController : MonoBehaviour {
     /* 
@@ -100,102 +101,89 @@ public class eventController : MonoBehaviour {
     }
 
     public void ShowSandDuneInfo() {
-        onlyShowChild(upperSection, 1);
-        onlyShowChild(elementHighlights, 0);
+        OnlyShowChild(upperSection, 1);
+        OnlyShowChild(elementHighlights, 0);
         if(firstChange) {
             firstChange = false;
-            onlyShowChild(middleSection, 1);
+            OnlyShowChild(middleSection, 1);
         }
         seenNatural = true;
-        if(ableToContinue()) {
-            activateContinue();
+        if(AbleToContinue()) {
+            ActivateContinue();
         }
     }
-    public void ShowSeaGrassInfo()
-    {
-        onlyShowChild(upperSection, 2);
-        onlyShowChild(elementHighlights, 1);
-        if (firstChange)
-        {
+    public void ShowSeaGrassInfo() {
+        OnlyShowChild(upperSection, 2);
+        OnlyShowChild(elementHighlights, 1);
+        if (firstChange) {
             firstChange = false;
-            onlyShowChild(middleSection, 1);
+            OnlyShowChild(middleSection, 1);
         }
         seenNatural = true;
-        if (ableToContinue())
-        {
-            activateContinue();
+        if (AbleToContinue()) {
+            ActivateContinue();
         }
     }
-    public void ShowOysterReefInfo()
-    {
-        onlyShowChild(upperSection, 3);
-        onlyShowChild(elementHighlights, 2);
-        if (firstChange)
-        {
+    public void ShowOysterReefInfo() {
+        OnlyShowChild(upperSection, 3);
+        OnlyShowChild(elementHighlights, 2);
+        if (firstChange) {
             firstChange = false;
-            onlyShowChild(middleSection, 1);
+            OnlyShowChild(middleSection, 1);
         }
         seenNatural = true;
-        if (ableToContinue())
-        {
-            activateContinue();
+        if (AbleToContinue()) {
+            ActivateContinue();
         }
     }
-    public void ShowFloodgateInfo()
-    {
-        onlyShowChild(upperSection, 4);
-        onlyShowChild(elementHighlights, 3);
-        if (firstChange)
-        {
+    public void ShowFloodgateInfo() {
+        OnlyShowChild(upperSection, 4);
+        OnlyShowChild(elementHighlights, 3);
+        if (firstChange) {
             firstChange = false;
-            onlyShowChild(middleSection, 1);
+            OnlyShowChild(middleSection, 1);
         }
         seenManMade = true;
-        if (ableToContinue())
-        {
-            activateContinue();
+        if (AbleToContinue()) {
+            ActivateContinue();
         }
     }
-    public void ShowBulkheadInfo()
-    {
-        onlyShowChild(upperSection, 5);
-        onlyShowChild(elementHighlights, 4);
-        if (firstChange)
-        {
+    public void ShowBulkheadInfo() {
+        OnlyShowChild(upperSection, 5);
+        OnlyShowChild(elementHighlights, 4);
+        if (firstChange) {
             firstChange = false;
-            onlyShowChild(middleSection, 1);
+            OnlyShowChild(middleSection, 1);
         }
         seenManMade = true;
-        if (ableToContinue())
-        {
-            activateContinue();
+        if (AbleToContinue()) {
+            ActivateContinue();
         }
+    }
+    public void NextScreen() {
+        SceneManager.LoadScene("game");
     }
 
-    private void onlyShowChild(GameObject section, int childNumber)
-    {
+    private void OnlyShowChild(GameObject section, int childNumber) {
         GameObject[] sectionChildren = getChildren(section);
 
-        if (childNumber >= sectionChildren.Length)
-        {
+        if (childNumber >= sectionChildren.Length) {
             Debug.Log("You're trying to access a child that doesn't exist!");
         }
 
-        for (int i = 0; i < sectionChildren.Length; i++)
-        {
-            if (sectionChildren[i].activeInHierarchy)
-            {
+        for (int i = 0; i < sectionChildren.Length; i++) {
+            if (sectionChildren[i].activeInHierarchy) {
                 sectionChildren[i].SetActive(false);
             }
         }
         sectionChildren[childNumber].SetActive(true);
     }
 
-    private bool ableToContinue() {
+    private bool AbleToContinue() {
         return seenNatural && seenManMade;
     }
 
-    private void activateContinue() {
+    private void ActivateContinue() {
         GameObject[] lowerChildren = getChildren(lowerSection);
         GameObject[] buttons = getChildren(lowerChildren[0]);
         GameObject grayButton = buttons[5];
