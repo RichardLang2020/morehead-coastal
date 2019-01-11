@@ -218,11 +218,11 @@ public class eventController : MonoBehaviour {
                 break;
 
             case 2:
-                warning = "Category 3 hurricane to hit NC coast";
+                warning = "Category 2 hurricane to hit NC coast";
                 break;
 
             case 3:
-                warning = "Category 5 hurricane to hit NC coast";
+                warning = "Category 3 hurricane to hit NC coast";
                 break;
         }
 

@@ -1186,7 +1186,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   yourButton: {fileID: 897092604}
-  navToScene: difficulty
+  navToScene: resourceInfo
 --- !u!114 &897092608
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1418,7 +1418,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   image: {fileID: 1678346306}
-  sceneToLoad: difficulty
   subtitles: {fileID: 1854180881}
   videoPlayer: {fileID: 1678346308}
   audioSource: {fileID: 1678346310}

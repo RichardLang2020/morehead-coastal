@@ -19,7 +19,6 @@ public class howToPlayVideo : MonoBehaviour
 {
 
     public RawImage image;
-    public string sceneToLoad;
     public Text subtitles;
 
     public UnityEngine.Video.VideoPlayer videoPlayer;
@@ -68,7 +67,7 @@ public class howToPlayVideo : MonoBehaviour
         }
 
         Debug.Log("Done Playing Video");
-        SceneManager.LoadScene(sceneToLoad);
+        SceneManager.LoadScene("resourceInfo");
     }
 
     // Update is called once per frame
