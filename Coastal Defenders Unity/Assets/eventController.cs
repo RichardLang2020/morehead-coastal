@@ -40,49 +40,6 @@ public class eventController : MonoBehaviour {
         Debug.Log("We're about to call diff.setup");
         DifficultySetup();
         Debug.Log("We've finished calling diff.setup");
-
-        /*for(int i = 0; i < sectionArray.Length; i++) {
-            Debug.Log("Section " + i + ": " + sectionArray[i]);
-
-            GameObject[] sectionChildren = getChildren(sectionArray[i]);
-
-            for(int j = 0; j < sectionChildren.Length; j++) {
-                Debug.Log(sectionArray[i] + "has child " + sectionChildren[j] + ", which is currently " + sectionChildren[j].activeInHierarchy);
-                if(sectionChildren[j].activeInHierarchy) {
-                    currentlyActive.Add(sectionChildren[j]);
-                }
-            }
-        }
-
-        Debug.Log(getChildren(upperSection)[0]);
-        Debug.Log(getChildren(upperSection)[0].activeInHierarchy);
-        Debug.Log(getChildren(upperSection)[1]);
-        Debug.Log(getChildren(upperSection)[1].activeInHierarchy);*/
-
-        //Debug.Log(upperSection[1]);
-
-        /*for(int i = 0; i < currentlyActive.Count; i++) {
-            Debug.Log("The GameObject " + currentlyActive[i] + " is currently active!");
-
-            Debug.Log("We're going to try removing that GameObject now - give us a second");
-            StartCoroutine(StallTime(1));
-            currentlyActive[i].SetActive(false);
-            Debug.Log("Did it work?");
-            StartCoroutine(StallTime(5));
-            Debug.Log("Onwards to the next one!");
-        }*/
-
-        /*
-        middleSection = canvas.transform.GetChild(2).gameObject;
-        
-        int childCount = canvas.transform.childCount;
-        Debug.Log("The current canvas has " + childCount + "children");
-        for (int i = 0; i < childCount; i++) {
-            Debug.Log("Child " + i + ": " + canvas.transform.GetChild(i));
-        }
-        */
-
-
     }
 
     // Update is called once per frame
