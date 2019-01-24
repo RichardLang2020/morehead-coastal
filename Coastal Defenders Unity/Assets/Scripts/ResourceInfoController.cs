@@ -4,7 +4,8 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
-public class eventController : MonoBehaviour {
+public class ResourceInfoController: MonoBehaviour
+{
     /* 
      * This script takes and controls the three components on the scene - brief details for each scene are listed below.
      * Upper Section - Initially shows information for the hurricane, then gives information for the selected resource
@@ -25,7 +26,8 @@ public class eventController : MonoBehaviour {
     private GameObject elementHighlights;
     private static int difficulty;
 
-    void Start () {
+    void Start()
+    {
         canContinue = false;
         sectionArray = new GameObject[3];
         sectionArray[0] = upperSection;
@@ -43,81 +45,100 @@ public class eventController : MonoBehaviour {
     }
 
     // Update is called once per frame
-    void Update () {
-		
-	}
+    void Update()
+    {
+
+    }
 
     // Stalls for a given amount of time
-    IEnumerator StallTime(int t) {
+    IEnumerator StallTime(int t)
+    {
         yield return new WaitForSeconds(t);
     }
 
-    public void ShowSandDuneInfo() {
+    public void ShowSandDuneInfo()
+    {
         OnlyShowChild(upperSection, 1);
         OnlyShowChild(elementHighlights, 0);
-        if(firstChange) {
+        if (firstChange)
+        {
             firstChange = false;
             OnlyShowChild(middleSection, 1);
         }
         seenNatural = true;
-        if(AbleToContinue()) {
+        if (AbleToContinue())
+        {
             ActivateContinue();
         }
     }
-    public void ShowSeaGrassInfo() {
+    public void ShowSeaGrassInfo()
+    {
         OnlyShowChild(upperSection, 2);
         OnlyShowChild(elementHighlights, 1);
-        if (firstChange) {
+        if (firstChange)
+        {
             firstChange = false;
             OnlyShowChild(middleSection, 1);
         }
         seenNatural = true;
-        if (AbleToContinue()) {
+        if (AbleToContinue())
+        {
             ActivateContinue();
         }
     }
-    public void ShowOysterReefInfo() {
+    public void ShowOysterReefInfo()
+    {
         OnlyShowChild(upperSection, 3);
         OnlyShowChild(elementHighlights, 2);
-        if (firstChange) {
+        if (firstChange)
+        {
             firstChange = false;
             OnlyShowChild(middleSection, 1);
         }
         seenNatural = true;
-        if (AbleToContinue()) {
+        if (AbleToContinue())
+        {
             ActivateContinue();
         }
     }
-    public void ShowFloodgateInfo() {
+    public void ShowFloodgateInfo()
+    {
         OnlyShowChild(upperSection, 4);
         OnlyShowChild(elementHighlights, 3);
-        if (firstChange) {
+        if (firstChange)
+        {
             firstChange = false;
             OnlyShowChild(middleSection, 1);
         }
         seenManMade = true;
-        if (AbleToContinue()) {
+        if (AbleToContinue())
+        {
             ActivateContinue();
         }
     }
-    public void ShowBulkheadInfo() {
+    public void ShowBulkheadInfo()
+    {
         OnlyShowChild(upperSection, 5);
         OnlyShowChild(elementHighlights, 4);
-        if (firstChange) {
+        if (firstChange)
+        {
             firstChange = false;
             OnlyShowChild(middleSection, 1);
         }
         seenManMade = true;
-        if (AbleToContinue()) {
+        if (AbleToContinue())
+        {
             ActivateContinue();
         }
     }
 
-    public void NextScreen() {
+    public void NextScreen()
+    {
         SceneManager.LoadScene("game");
     }
 
-    public static int GetDifficulty() {
+    public static int GetDifficulty()
+    {
         return difficulty;
     }
 
@@ -135,26 +156,32 @@ public class eventController : MonoBehaviour {
     }
 
     // Hides all other children of a given GameObject, and only shows the specified child
-    private void OnlyShowChild(GameObject section, int childNumber) {
+    private void OnlyShowChild(GameObject section, int childNumber)
+    {
         GameObject[] sectionChildren = GetChildren(section);
 
-        if (childNumber >= sectionChildren.Length) {
+        if (childNumber >= sectionChildren.Length)
+        {
             Debug.Log("You're trying to access a child that doesn't exist!");
         }
 
-        for (int i = 0; i < sectionChildren.Length; i++) {
-            if (sectionChildren[i].activeInHierarchy) {
+        for (int i = 0; i < sectionChildren.Length; i++)
+        {
+            if (sectionChildren[i].activeInHierarchy)
+            {
                 sectionChildren[i].SetActive(false);
             }
         }
         sectionChildren[childNumber].SetActive(true);
     }
 
-    private bool AbleToContinue() {
+    private bool AbleToContinue()
+    {
         return seenNatural && seenManMade;
     }
 
-    private void ActivateContinue() {
+    private void ActivateContinue()
+    {
         GameObject[] lowerChildren = GetChildren(lowerSection);
         GameObject[] buttons = GetChildren(lowerChildren[0]);
         GameObject grayButton = buttons[5];
@@ -164,12 +191,14 @@ public class eventController : MonoBehaviour {
         redButton.SetActive(true);
     }
 
-    private void DifficultySetup() {
+    private void DifficultySetup()
+    {
         GameObject[] upperChildren = GetChildren(upperSection);
         GameObject[] defaultElements = GetChildren(upperChildren[0]);
         GameObject warningText = defaultElements[1];
         string warning = "";
-        switch(difficulty) {
+        switch (difficulty)
+        {
             case 1:
                 warning = "Category 1 hurricane to hit NC coast";
                 break;

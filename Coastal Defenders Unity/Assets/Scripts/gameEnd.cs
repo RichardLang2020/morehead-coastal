@@ -67,7 +67,7 @@ public class gameEnd : MonoBehaviour {
         }
 
         
-        switch(eventController.GetDifficulty()) {
+        switch(ResourceInfoController.GetDifficulty()) {
             case 1:
                 hurricanePlayer.clip = hurricanePath[0];
                 break;

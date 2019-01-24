@@ -33,7 +33,7 @@ public class ScoreCalculator : MonoBehaviour
         float humanpercent = 0;
         float landpercent = 0;
         float animalpercent = 0;
-        if(eventController.GetDifficulty() == 1)
+        if(ResourceInfoController.GetDifficulty() == 1)
         {
             humanpercent = (PlayerPrefs.GetFloat("netHuman") / 20);
             landpercent = (PlayerPrefs.GetFloat("netLand") / 20);
@@ -41,7 +41,7 @@ public class ScoreCalculator : MonoBehaviour
             humanPBar.offsetMax = new Vector2((float)(-( 207.5 - 315*(PlayerPrefs.GetFloat("netHuman") / 20))), humanPBar.offsetMax.y);
             propertyPBar.offsetMax = new Vector2((float)(-( 207.5 - 315 * (PlayerPrefs.GetFloat("netLand") / 20))), propertyPBar.offsetMax.y);
             ecoPBar.offsetMax = new Vector2((float)(-( 207.5 - 315 * (PlayerPrefs.GetFloat("netAnimal") / 20))), ecoPBar.offsetMax.y);
-        } else if(eventController.GetDifficulty() == 2)
+        } else if(ResourceInfoController.GetDifficulty() == 2)
         {
             humanpercent = (PlayerPrefs.GetFloat("netHuman") / 30);
             landpercent = (PlayerPrefs.GetFloat("netLand") / 25);
@@ -50,7 +50,7 @@ public class ScoreCalculator : MonoBehaviour
             propertyPBar.offsetMax = new Vector2((float)(-( 207.5 - 315 * (PlayerPrefs.GetFloat("netLand") / 25))), propertyPBar.offsetMax.y);
             ecoPBar.offsetMax = new Vector2((float)(-( 207.5 - 315 * (PlayerPrefs.GetFloat("netAnimal") / 25))), ecoPBar.offsetMax.y);
 
-        } else if(eventController.GetDifficulty() == 3)
+        } else if(ResourceInfoController.GetDifficulty() == 3)
         {
             humanpercent = (PlayerPrefs.GetFloat("netHuman") / 15);
             landpercent = (PlayerPrefs.GetFloat("netLand") / 35);
