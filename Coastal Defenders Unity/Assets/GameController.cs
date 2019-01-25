@@ -28,7 +28,6 @@ public class GameController : MonoBehaviour
      */
     private int[] resourceNumbers;
     private bool firstChange;
-    private GameObject elementHighlights;
     private static int difficulty;
 
     void Start()
@@ -37,8 +36,8 @@ public class GameController : MonoBehaviour
         // Get ready to play the introduction video
 
         // Confirm that the introduction video has finished, start swapping things into the main game
+        // Call on the difficulty to make sure we're loading things in properly for coins and maps
         firstChange = true;
-        elementHighlights = GetChildren(lowerSection)[1];
     }
 
     // Update is called once per frame
