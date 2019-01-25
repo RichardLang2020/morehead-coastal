@@ -7,7 +7,7 @@ using UnityEngine.SceneManagement;
 public class ResourceInfoController: MonoBehaviour
 {
     /* 
-     * This script takes and controls the three components on the scene - brief details for each scene are listed below.
+     * This script takes and controls the three components on the scene - brief details for each component are listed below.
      * Upper Section - Initially shows information for the hurricane, then gives information for the selected resource
      * Middle Section - Initially gives detailed instructions, then swaps to less details
      * Lower Section - Shows all five possible resources, highlighting the selected one, and also contains the continue button
@@ -18,8 +18,6 @@ public class ResourceInfoController: MonoBehaviour
     public GameObject lowerSection;
 
     private bool canContinue;
-    private GameObject[] sectionArray;
-    private List<GameObject> currentlyActive;
     private bool seenNatural;
     private bool seenManMade;
     private bool firstChange;
@@ -29,11 +27,6 @@ public class ResourceInfoController: MonoBehaviour
     void Start()
     {
         canContinue = false;
-        sectionArray = new GameObject[3];
-        sectionArray[0] = upperSection;
-        sectionArray[1] = middleSection;
-        sectionArray[2] = lowerSection;
-        currentlyActive = new List<GameObject>();
         seenNatural = false;
         seenManMade = false;
         firstChange = true;
@@ -48,12 +41,6 @@ public class ResourceInfoController: MonoBehaviour
     void Update()
     {
 
-    }
-
-    // Stalls for a given amount of time
-    IEnumerator StallTime(int t)
-    {
-        yield return new WaitForSeconds(t);
     }
 
     public void ShowSandDuneInfo()

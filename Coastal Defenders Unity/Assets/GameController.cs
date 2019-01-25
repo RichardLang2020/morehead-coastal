@@ -7,10 +7,11 @@ using UnityEngine.SceneManagement;
 public class GameController : MonoBehaviour
 {
     /* 
-     * This script takes and controls the three components on the scene - brief details for each scene are listed below.
-     * Upper Section - Initially shows information for the hurricane, then gives information for the selected resource
-     * Middle Section - Initially gives detailed instructions, then swaps to less details
-     * Lower Section - Shows all five possible resources, highlighting the selected one, and also contains the continue button
+     * This script takes and controls the four components on the scene - brief details for each component are listed below.
+     * Top Bar - Lists a warning for the incoming hurricane as well as a timer during the main game
+     * Upper Section - Starts as a video but transitions into the main game and dynamically changes based on input resources
+     * Middle Section - Gives instructions regarding gameplay, and sometimes offers hints to the players. Also shows the amount of coins remaining
+     * Lower Section - Allows players to buy / sell resources, grays out buttons if not possible
      */
 
     public GameObject topBar;
