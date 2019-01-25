@@ -19,31 +19,26 @@ public class GameController : MonoBehaviour
     public GameObject middleSection;
     public GameObject lowerSection;
 
-    private bool canContinue;
-    private GameObject[] sectionArray;
-    private List<GameObject> currentlyActive;
-    private bool seenNatural;
-    private bool seenManMade;
+    /*
+     * 1 - Sand Dunes
+     * 2 - Oyster Reefs
+     * 3 - Bulkheads
+     * 4 - Floodgates
+     * 5 - Sandgrass
+     */
+    private int[] resourceNumbers;
     private bool firstChange;
     private GameObject elementHighlights;
     private static int difficulty;
 
     void Start()
     {
-        canContinue = false;
-        sectionArray = new GameObject[3];
-        sectionArray[0] = upperSection;
-        sectionArray[1] = middleSection;
-        sectionArray[2] = lowerSection;
-        currentlyActive = new List<GameObject>();
-        seenNatural = false;
-        seenManMade = false;
+        resourceNumbers = new int[5];
+        // Get ready to play the introduction video
+
+        // Confirm that the introduction video has finished, start swapping things into the main game
         firstChange = true;
         elementHighlights = GetChildren(lowerSection)[1];
-        difficulty = Random.Range(1, 4);
-        Debug.Log("We're about to call diff.setup");
-        DifficultySetup();
-        Debug.Log("We've finished calling diff.setup");
     }
 
     // Update is called once per frame
@@ -52,96 +47,9 @@ public class GameController : MonoBehaviour
 
     }
 
-    // Stalls for a given amount of time
-    IEnumerator StallTime(int t)
-    {
-        yield return new WaitForSeconds(t);
-    }
-
-    public void ShowSandDuneInfo()
-    {
-        OnlyShowChild(upperSection, 1);
-        OnlyShowChild(elementHighlights, 0);
-        if (firstChange)
-        {
-            firstChange = false;
-            OnlyShowChild(middleSection, 1);
-        }
-        seenNatural = true;
-        if (AbleToContinue())
-        {
-            ActivateContinue();
-        }
-    }
-    public void ShowSeaGrassInfo()
-    {
-        OnlyShowChild(upperSection, 2);
-        OnlyShowChild(elementHighlights, 1);
-        if (firstChange)
-        {
-            firstChange = false;
-            OnlyShowChild(middleSection, 1);
-        }
-        seenNatural = true;
-        if (AbleToContinue())
-        {
-            ActivateContinue();
-        }
-    }
-    public void ShowOysterReefInfo()
-    {
-        OnlyShowChild(upperSection, 3);
-        OnlyShowChild(elementHighlights, 2);
-        if (firstChange)
-        {
-            firstChange = false;
-            OnlyShowChild(middleSection, 1);
-        }
-        seenNatural = true;
-        if (AbleToContinue())
-        {
-            ActivateContinue();
-        }
-    }
-    public void ShowFloodgateInfo()
-    {
-        OnlyShowChild(upperSection, 4);
-        OnlyShowChild(elementHighlights, 3);
-        if (firstChange)
-        {
-            firstChange = false;
-            OnlyShowChild(middleSection, 1);
-        }
-        seenManMade = true;
-        if (AbleToContinue())
-        {
-            ActivateContinue();
-        }
-    }
-    public void ShowBulkheadInfo()
-    {
-        OnlyShowChild(upperSection, 5);
-        OnlyShowChild(elementHighlights, 4);
-        if (firstChange)
-        {
-            firstChange = false;
-            OnlyShowChild(middleSection, 1);
-        }
-        seenManMade = true;
-        if (AbleToContinue())
-        {
-            ActivateContinue();
-        }
-    }
-
     public void NextScreen()
     {
         SceneManager.LoadScene("game");
-    }
-
-    public static int GetDifficulty()
-    {
-        return difficulty;
     }
 
     // Returns all immediate children for a given GameObject
@@ -175,48 +83,5 @@ public class GameController : MonoBehaviour
             }
         }
         sectionChildren[childNumber].SetActive(true);
-    }
-
-    private bool AbleToContinue()
-    {
-        return seenNatural && seenManMade;
-    }
-
-    private void ActivateContinue()
-    {
-        GameObject[] lowerChildren = GetChildren(lowerSection);
-        GameObject[] buttons = GetChildren(lowerChildren[0]);
-        GameObject grayButton = buttons[5];
-        GameObject redButton = buttons[6];
-
-        grayButton.SetActive(false);
-        redButton.SetActive(true);
-    }
-
-    private void DifficultySetup()
-    {
-        GameObject[] upperChildren = GetChildren(upperSection);
-        GameObject[] defaultElements = GetChildren(upperChildren[0]);
-        GameObject warningText = defaultElements[1];
-        string warning = "";
-        switch (difficulty)
-        {
-            case 1:
-                warning = "Category 1 hurricane to hit NC coast";
-                break;
-
-            case 2:
-                warning = "Category 2 hurricane to hit NC coast";
-                break;
-
-            case 3:
-                warning = "Category 3 hurricane to hit NC coast";
-                break;
-        }
-
-        Debug.Log("Our random number generator returned difficulty " + difficulty);
-        Debug.Log("This translates to the warning '" + warning + "'");
-
-        warningText.GetComponent<Text>().text = warning;
     }
 }
