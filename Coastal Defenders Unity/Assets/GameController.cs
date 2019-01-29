@@ -56,6 +56,108 @@ public class GameController : MonoBehaviour
         SceneManager.LoadScene("game");
     }
 
+    public void AddSandDune() {
+        GameObject mainGame = GetChildren(upperSection)[1];
+        GameObject resourceArray = GetChildren(mainGame)[1];
+        GameObject desiredResource = GetChildren(resourceArray)[resourceNumbers[0]];
+        
+        desiredResource.SetActive(true);
+
+        // Decrease Money
+        resourceNumbers[0]++;
+    }
+    public void AddOysterReef() {
+        GameObject mainGame = GetChildren(upperSection)[1];
+        GameObject resourceArray = GetChildren(mainGame)[2];
+        GameObject desiredResource = GetChildren(resourceArray)[resourceNumbers[1]];
+
+        desiredResource.SetActive(true);
+
+        // Decrease Money
+        resourceNumbers[1]++;
+    }
+    public void AddBulkhead() {
+        GameObject mainGame = GetChildren(upperSection)[1];
+        GameObject resourceArray = GetChildren(mainGame)[3];
+        GameObject desiredResource = GetChildren(resourceArray)[resourceNumbers[2]];
+
+        desiredResource.SetActive(true);
+
+        // Decrease Money
+        resourceNumbers[2]++;
+    }
+    public void AddFloodgate() {
+        GameObject mainGame = GetChildren(upperSection)[1];
+        GameObject resourceArray = GetChildren(mainGame)[4];
+        GameObject desiredResource = GetChildren(resourceArray)[resourceNumbers[3]];
+
+        desiredResource.SetActive(true);
+
+        // Decrease Money
+        resourceNumbers[3]++;
+    }
+    public void AddSeaGrass() {
+        GameObject mainGame = GetChildren(upperSection)[1];
+        GameObject resourceArray = GetChildren(mainGame)[5];
+        GameObject desiredResource = GetChildren(resourceArray)[resourceNumbers[4]];
+
+        desiredResource.SetActive(true);
+
+        // Decrease Money
+        resourceNumbers[4]++;
+    }
+
+    public void RemoveSandDune() {
+        resourceNumbers[0]--;
+        GameObject mainGame = GetChildren(upperSection)[1];
+        GameObject resourceArray = GetChildren(mainGame)[1];
+        GameObject desiredResource = GetChildren(resourceArray)[resourceNumbers[0]];
+
+        desiredResource.SetActive(false);
+
+        // Increase Money
+    }
+    public void RemoveOysterReef() {
+        resourceNumbers[1]--;
+        GameObject mainGame = GetChildren(upperSection)[1];
+        GameObject resourceArray = GetChildren(mainGame)[2];
+        GameObject desiredResource = GetChildren(resourceArray)[resourceNumbers[1]];
+
+        desiredResource.SetActive(false);
+
+        // Increase Money
+    }
+    public void RemoveBulkhead() {
+        resourceNumbers[2]--;
+        GameObject mainGame = GetChildren(upperSection)[1];
+        GameObject resourceArray = GetChildren(mainGame)[3];
+        GameObject desiredResource = GetChildren(resourceArray)[resourceNumbers[2]];
+
+        desiredResource.SetActive(false);
+
+        // Increase Money
+    }
+    public void RemoveFloodgate() {
+        resourceNumbers[3]--;
+        GameObject mainGame = GetChildren(upperSection)[1];
+        GameObject resourceArray = GetChildren(mainGame)[4];
+        GameObject desiredResource = GetChildren(resourceArray)[resourceNumbers[3]];
+
+        desiredResource.SetActive(false);
+
+        // Increase Money
+    }
+    public void RemoveSeaGrass() {
+        resourceNumbers[4]--;
+        GameObject mainGame = GetChildren(upperSection)[1];
+        GameObject resourceArray = GetChildren(mainGame)[5];
+        GameObject desiredResource = GetChildren(resourceArray)[resourceNumbers[4]];
+
+        desiredResource.SetActive(false);
+
+        // Increase Money
+    }
+
     // Returns all immediate children for a given GameObject
     private GameObject[] GetChildren(GameObject g)
     {
