@@ -18,6 +18,7 @@ public class GameController : MonoBehaviour
     public GameObject upperSection;
     public GameObject middleSection;
     public GameObject lowerSection;
+    public Text timerText;
 
     /*
      * 1 - Sand Dunes
@@ -38,6 +39,10 @@ public class GameController : MonoBehaviour
         // Confirm that the introduction video has finished, start swapping things into the main game
         // Call on the difficulty to make sure we're loading things in properly for coins and maps
         firstChange = true;
+        
+        MainTimer(timerText, 180);
+
+        Debug.Log("Printing some stuff after the main timer to see if multithreading is active");
     }
 
     // Update is called once per frame
@@ -82,5 +87,34 @@ public class GameController : MonoBehaviour
             }
         }
         sectionChildren[childNumber].SetActive(true);
+    }
+
+    // Runs the timer and prints it to the timerText
+    private void MainTimer(Text timerText, int seconds) {
+        int secondsRemaining = seconds;
+
+        if(secondsRemaining >= 0) {
+            int currentMinutes = secondsRemaining / 60;
+            int currentSeconds = secondsRemaining % 60;
+
+            string minutesString = currentMinutes.ToString();
+            string secondsString = currentSeconds.ToString();
+            if (currentSeconds < 10)
+            {
+                secondsString = '0' + currentSeconds.ToString();
+            }
+            timerText.text = minutesString + ":" + secondsString;
+
+            secondsRemaining--;
+            StartCoroutine(TimeStall(timerText, secondsRemaining, 1));
+        } else {
+            timerText.text = "Finished!";
+            Debug.Log("Timer finished!");
+        }
+    }
+
+    IEnumerator TimeStall(Text timerText, int seconds, int stallTime) {
+        yield return new WaitForSeconds(stallTime);
+        MainTimer(timerText, seconds);
     }
 }

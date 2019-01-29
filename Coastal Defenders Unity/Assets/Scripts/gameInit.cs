@@ -12,7 +12,7 @@ public class gameInit : MonoBehaviour {
         KeyboardController.slideDisable = true;
         Debug.Log("DIFFICULTY");
         Debug.Log(ResourceInfoController.GetDifficulty());
-        points = GameObject.FindGameObjectWithTag("Points").GetComponent<PointsController>();
+        points = null; // GameObject.FindGameObjectWithTag("Points").GetComponent<PointsController>();
         solutionList = this.gameObject.GetComponentsInChildren<SolutionController>();
         switch(ResourceInfoController.GetDifficulty())
         {
@@ -29,7 +29,7 @@ public class gameInit : MonoBehaviour {
                 break;
 
             default:
-                points.pointsCount = 230;
+                // points.pointsCount = 230;
                 break;
         }
 
