@@ -13,7 +13,7 @@ public class GameController : MonoBehaviour
      * Middle Section - Gives instructions regarding gameplay, and sometimes offers hints to the players. Also shows the amount of coins remaining
      * Lower Section - Allows players to buy / sell resources, grays out buttons if not possible
      */
-
+    
     public GameObject topBar;
     public GameObject upperSection;
     public GameObject middleSection;
@@ -21,19 +21,21 @@ public class GameController : MonoBehaviour
     public Text timerText;
 
     /*
-     * 1 - Sand Dunes
-     * 2 - Oyster Reefs
-     * 3 - Bulkheads
-     * 4 - Floodgates
-     * 5 - Sandgrass
+     * 0 - Sand Dunes
+     * 1 - Oyster Reefs
+     * 2 - Bulkheads
+     * 3 - Floodgates
+     * 4 - Sandgrass
      */
-    private int[] resourceNumbers;
+    private int[] currentResourceNumbers;
+    private int[] maxResourceNumbers;
     private bool firstChange;
     private static int difficulty;
 
     void Start()
     {
-        resourceNumbers = new int[5];
+        currentResourceNumbers = new int[5];
+        maxResourceNumbers = new int[5] {4, 4, 2, 1, 3};
         // Get ready to play the introduction video
 
         // Confirm that the introduction video has finished, start swapping things into the main game
@@ -57,105 +59,147 @@ public class GameController : MonoBehaviour
     }
 
     public void AddSandDune() {
-        GameObject mainGame = GetChildren(upperSection)[1];
-        GameObject resourceArray = GetChildren(mainGame)[1];
-        GameObject desiredResource = GetChildren(resourceArray)[resourceNumbers[0]];
-        
-        desiredResource.SetActive(true);
-
-        // Decrease Money
-        resourceNumbers[0]++;
+        addResource(0);
     }
     public void AddOysterReef() {
-        GameObject mainGame = GetChildren(upperSection)[1];
-        GameObject resourceArray = GetChildren(mainGame)[2];
-        GameObject desiredResource = GetChildren(resourceArray)[resourceNumbers[1]];
-
-        desiredResource.SetActive(true);
-
-        // Decrease Money
-        resourceNumbers[1]++;
+        addResource(1);
     }
     public void AddBulkhead() {
-        GameObject mainGame = GetChildren(upperSection)[1];
-        GameObject resourceArray = GetChildren(mainGame)[3];
-        GameObject desiredResource = GetChildren(resourceArray)[resourceNumbers[2]];
-
-        desiredResource.SetActive(true);
-
-        // Decrease Money
-        resourceNumbers[2]++;
+        addResource(2);
     }
     public void AddFloodgate() {
-        GameObject mainGame = GetChildren(upperSection)[1];
-        GameObject resourceArray = GetChildren(mainGame)[4];
-        GameObject desiredResource = GetChildren(resourceArray)[resourceNumbers[3]];
-
-        desiredResource.SetActive(true);
-
-        // Decrease Money
-        resourceNumbers[3]++;
+        addResource(3);
     }
     public void AddSeaGrass() {
-        GameObject mainGame = GetChildren(upperSection)[1];
-        GameObject resourceArray = GetChildren(mainGame)[5];
-        GameObject desiredResource = GetChildren(resourceArray)[resourceNumbers[4]];
-
-        desiredResource.SetActive(true);
-
-        // Decrease Money
-        resourceNumbers[4]++;
+        addResource(4);
     }
 
     public void RemoveSandDune() {
-        resourceNumbers[0]--;
-        GameObject mainGame = GetChildren(upperSection)[1];
-        GameObject resourceArray = GetChildren(mainGame)[1];
-        GameObject desiredResource = GetChildren(resourceArray)[resourceNumbers[0]];
-
-        desiredResource.SetActive(false);
-
-        // Increase Money
+        removeResource(0);
     }
     public void RemoveOysterReef() {
-        resourceNumbers[1]--;
-        GameObject mainGame = GetChildren(upperSection)[1];
-        GameObject resourceArray = GetChildren(mainGame)[2];
-        GameObject desiredResource = GetChildren(resourceArray)[resourceNumbers[1]];
-
-        desiredResource.SetActive(false);
-
-        // Increase Money
+        removeResource(1);
     }
     public void RemoveBulkhead() {
-        resourceNumbers[2]--;
-        GameObject mainGame = GetChildren(upperSection)[1];
-        GameObject resourceArray = GetChildren(mainGame)[3];
-        GameObject desiredResource = GetChildren(resourceArray)[resourceNumbers[2]];
-
-        desiredResource.SetActive(false);
-
-        // Increase Money
+        removeResource(2);
     }
     public void RemoveFloodgate() {
-        resourceNumbers[3]--;
-        GameObject mainGame = GetChildren(upperSection)[1];
-        GameObject resourceArray = GetChildren(mainGame)[4];
-        GameObject desiredResource = GetChildren(resourceArray)[resourceNumbers[3]];
-
-        desiredResource.SetActive(false);
-
-        // Increase Money
+        removeResource(3);
     }
     public void RemoveSeaGrass() {
-        resourceNumbers[4]--;
+        removeResource(4);
+    }
+
+    // Adds one of the given resource number - these numbers are -1 from the values in the currentResourceNumbers array
+    private void addResource(int resourceNumber) {
+        if (currentResourceNumbers[resourceNumber] == maxResourceNumbers[resourceNumber]) {
+            string resourceName;
+
+            switch (resourceNumber) {
+                case 0:
+                    resourceName = "Sand Dunes";
+                    break;
+                case 1:
+                    resourceName = "Oyster Reefs";
+                    break;
+                case 2:
+                    resourceName = "Bulkheads";
+                    break;
+                case 3:
+                    resourceName = "Floodgates";
+                    break;
+                case 4:
+                    resourceName = "Sea Grasses";
+                    break;
+                default:
+                    resourceName = "Unknown Resource";
+                    break;
+            }
+
+            Debug.Log("You've placed too many " + resourceName);
+            return;
+        }
+
         GameObject mainGame = GetChildren(upperSection)[1];
-        GameObject resourceArray = GetChildren(mainGame)[5];
-        GameObject desiredResource = GetChildren(resourceArray)[resourceNumbers[4]];
+        GameObject resourceArray = GetChildren(mainGame)[resourceNumber + 1];
+        GameObject desiredResource = GetChildren(resourceArray)[currentResourceNumbers[resourceNumber]];
+
+        desiredResource.SetActive(true);
+
+        // Decrease Money
+        currentResourceNumbers[resourceNumber]++;
+
+        if(currentResourceNumbers[resourceNumber] == maxResourceNumbers[resourceNumber]) {
+            GameObject resourceButtons = GetChildren(lowerSection)[resourceNumber + 1];
+            GameObject grayPlus = GetChildren(resourceButtons)[2];
+            GameObject bluePlus = GetChildren(resourceButtons)[4];
+
+            grayPlus.SetActive(true);
+            bluePlus.SetActive(false);
+        }
+        if (currentResourceNumbers[resourceNumber] == 1) {
+            GameObject resourceButtons = GetChildren(lowerSection)[resourceNumber + 1];
+            GameObject grayMinus = GetChildren(resourceButtons)[1];
+            GameObject blueMinus = GetChildren(resourceButtons)[3];
+
+            grayMinus.SetActive(false);
+            blueMinus.SetActive(true);
+        }
+    }
+    // Removes one of the given resource number
+    private void removeResource(int resourceNumber) {
+        if (currentResourceNumbers[resourceNumber] == 0) {
+            string resourceName;
+
+            switch (resourceNumber) {
+                case 0:
+                    resourceName = "Sand Dunes";
+                    break;
+                case 1:
+                    resourceName = "Oyster Reefs";
+                    break;
+                case 2:
+                    resourceName = "Bulkheads";
+                    break;
+                case 3:
+                    resourceName = "Floodgates";
+                    break;
+                case 4:
+                    resourceName = "Sea Grasses";
+                    break;
+                default:
+                    resourceName = "Unknown Resource";
+                    break;
+            }
+
+            Debug.Log("You cannot remove any since you don't have any " + resourceName);
+            return;
+        }
+
+        currentResourceNumbers[resourceNumber]--;
+        GameObject mainGame = GetChildren(upperSection)[1];
+        GameObject resourceArray = GetChildren(mainGame)[resourceNumber+ 1];
+        GameObject desiredResource = GetChildren(resourceArray)[currentResourceNumbers[resourceNumber]];
 
         desiredResource.SetActive(false);
 
         // Increase Money
+        if (currentResourceNumbers[resourceNumber] == maxResourceNumbers[resourceNumber] - 1) {
+            GameObject resourceButtons = GetChildren(lowerSection)[resourceNumber + 1];
+            GameObject grayPlus = GetChildren(resourceButtons)[2];
+            GameObject bluePlus = GetChildren(resourceButtons)[4];
+
+            grayPlus.SetActive(false);
+            bluePlus.SetActive(true);
+        }
+        if (currentResourceNumbers[resourceNumber] == 0) {
+            GameObject resourceButtons = GetChildren(lowerSection)[resourceNumber + 1];
+            GameObject grayMinus = GetChildren(resourceButtons)[1];
+            GameObject blueMinus = GetChildren(resourceButtons)[3];
+
+            grayMinus.SetActive(true);
+            blueMinus.SetActive(false);
+        }
     }
 
     // Returns all immediate children for a given GameObject
