@@ -92,34 +92,6 @@ public class GameController : MonoBehaviour
 
     // Adds one of the given resource number - these numbers are -1 from the values in the currentResourceNumbers array
     private void addResource(int resourceNumber) {
-        if (currentResourceNumbers[resourceNumber] == maxResourceNumbers[resourceNumber]) {
-            string resourceName;
-
-            switch (resourceNumber) {
-                case 0:
-                    resourceName = "Sand Dunes";
-                    break;
-                case 1:
-                    resourceName = "Oyster Reefs";
-                    break;
-                case 2:
-                    resourceName = "Bulkheads";
-                    break;
-                case 3:
-                    resourceName = "Floodgates";
-                    break;
-                case 4:
-                    resourceName = "Sea Grasses";
-                    break;
-                default:
-                    resourceName = "Unknown Resource";
-                    break;
-            }
-
-            Debug.Log("You've placed too many " + resourceName);
-            return;
-        }
-
         GameObject mainGame = GetChildren(upperSection)[1];
         GameObject resourceArray = GetChildren(mainGame)[resourceNumber + 1];
         GameObject desiredResource = GetChildren(resourceArray)[currentResourceNumbers[resourceNumber]];
@@ -129,6 +101,7 @@ public class GameController : MonoBehaviour
         // Decrease Money
         currentResourceNumbers[resourceNumber]++;
 
+        // Deactivate the "+" button for resources after we hit the max number of that resource
         if(currentResourceNumbers[resourceNumber] == maxResourceNumbers[resourceNumber]) {
             GameObject resourceButtons = GetChildren(lowerSection)[resourceNumber + 1];
             GameObject grayPlus = GetChildren(resourceButtons)[2];
@@ -137,6 +110,7 @@ public class GameController : MonoBehaviour
             grayPlus.SetActive(true);
             bluePlus.SetActive(false);
         }
+        // Reactivate the "-" button after we get over 0 of that resource
         if (currentResourceNumbers[resourceNumber] == 1) {
             GameObject resourceButtons = GetChildren(lowerSection)[resourceNumber + 1];
             GameObject grayMinus = GetChildren(resourceButtons)[1];
@@ -148,34 +122,6 @@ public class GameController : MonoBehaviour
     }
     // Removes one of the given resource number
     private void removeResource(int resourceNumber) {
-        if (currentResourceNumbers[resourceNumber] == 0) {
-            string resourceName;
-
-            switch (resourceNumber) {
-                case 0:
-                    resourceName = "Sand Dunes";
-                    break;
-                case 1:
-                    resourceName = "Oyster Reefs";
-                    break;
-                case 2:
-                    resourceName = "Bulkheads";
-                    break;
-                case 3:
-                    resourceName = "Floodgates";
-                    break;
-                case 4:
-                    resourceName = "Sea Grasses";
-                    break;
-                default:
-                    resourceName = "Unknown Resource";
-                    break;
-            }
-
-            Debug.Log("You cannot remove any since you don't have any " + resourceName);
-            return;
-        }
-
         currentResourceNumbers[resourceNumber]--;
         GameObject mainGame = GetChildren(upperSection)[1];
         GameObject resourceArray = GetChildren(mainGame)[resourceNumber+ 1];
@@ -184,6 +130,7 @@ public class GameController : MonoBehaviour
         desiredResource.SetActive(false);
 
         // Increase Money
+        // Reactivate the "+" button for resources after we get under the max number of that resource
         if (currentResourceNumbers[resourceNumber] == maxResourceNumbers[resourceNumber] - 1) {
             GameObject resourceButtons = GetChildren(lowerSection)[resourceNumber + 1];
             GameObject grayPlus = GetChildren(resourceButtons)[2];
@@ -192,6 +139,7 @@ public class GameController : MonoBehaviour
             grayPlus.SetActive(false);
             bluePlus.SetActive(true);
         }
+        // Deactivate the "-" button for resources if we get to 0 as the current number of that resource
         if (currentResourceNumbers[resourceNumber] == 0) {
             GameObject resourceButtons = GetChildren(lowerSection)[resourceNumber + 1];
             GameObject grayMinus = GetChildren(resourceButtons)[1];
