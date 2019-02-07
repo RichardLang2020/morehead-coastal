@@ -19,6 +19,7 @@ public class GameController : MonoBehaviour
     public GameObject middleSection;
     public GameObject lowerSection;
     public Text timerText;
+    public Text coinDisplay;
 
     /*
      * 0 - Sand Dunes
@@ -40,6 +41,8 @@ public class GameController : MonoBehaviour
         maxResourceNumbers = new int[5] {4, 4, 2, 1, 3};
         resourceCosts = new int[5] {20, 30, 50, 100, 25};
         coins = 200;
+        Debug.Log(coins.ToString());
+        coinDisplay.text = coins.ToString();
         // Get ready to play the introduction video
 
         // Confirm that the introduction video has finished, start swapping things into the main game
@@ -104,6 +107,8 @@ public class GameController : MonoBehaviour
 
         coins = coins - resourceCosts[resourceNumber];
         Debug.Log("We currently have: " + coins + " coins.");
+        coinDisplay.text = coins.ToString();
+
         currentResourceNumbers[resourceNumber]++;
 
         // Deactivate the "+" button for any resource that we can no longer afford
@@ -147,6 +152,7 @@ public class GameController : MonoBehaviour
 
         coins = coins + resourceCosts[resourceNumber];
         Debug.Log("We currently have: " + coins + " coins.");
+        coinDisplay.text = coins.ToString();
 
         // Reactivate the "+" button for resources that we can now afford
         for (int i = 0; i < currentResourceNumbers.Length; i++) {
