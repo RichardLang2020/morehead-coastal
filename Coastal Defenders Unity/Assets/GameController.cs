@@ -29,6 +29,8 @@ public class GameController : MonoBehaviour
      */
     private int[] currentResourceNumbers;
     private int[] maxResourceNumbers;
+    private int[] resourceCosts;
+    private int coins;
     private bool firstChange;
     private static int difficulty;
 
@@ -36,6 +38,8 @@ public class GameController : MonoBehaviour
     {
         currentResourceNumbers = new int[5];
         maxResourceNumbers = new int[5] {4, 4, 2, 1, 3};
+        resourceCosts = new int[5] {20, 30, 50, 100, 25};
+        coins = 200;
         // Get ready to play the introduction video
 
         // Confirm that the introduction video has finished, start swapping things into the main game
@@ -98,9 +102,21 @@ public class GameController : MonoBehaviour
 
         desiredResource.SetActive(true);
 
-        // Decrease Money
+        coins = coins - resourceCosts[resourceNumber];
+        Debug.Log("We currently have: " + coins + " coins.");
         currentResourceNumbers[resourceNumber]++;
 
+        // Deactivate the "+" button for any resource that we can no longer afford
+        for(int i = 0; i < currentResourceNumbers.Length; i++) {
+            if(resourceCosts[i] > coins) {
+                GameObject resourceButtons = GetChildren(lowerSection)[i + 1];
+                GameObject grayPlus = GetChildren(resourceButtons)[2];
+                GameObject bluePlus = GetChildren(resourceButtons)[4];
+
+                grayPlus.SetActive(true);
+                bluePlus.SetActive(false);
+            }
+        }
         // Deactivate the "+" button for resources after we hit the max number of that resource
         if(currentResourceNumbers[resourceNumber] == maxResourceNumbers[resourceNumber]) {
             GameObject resourceButtons = GetChildren(lowerSection)[resourceNumber + 1];
@@ -129,7 +145,20 @@ public class GameController : MonoBehaviour
 
         desiredResource.SetActive(false);
 
-        // Increase Money
+        coins = coins + resourceCosts[resourceNumber];
+        Debug.Log("We currently have: " + coins + " coins.");
+
+        // Reactivate the "+" button for resources that we can now afford
+        for (int i = 0; i < currentResourceNumbers.Length; i++) {
+            if (resourceCosts[i] <= coins && currentResourceNumbers[i] < maxResourceNumbers[i]) {
+                GameObject resourceButtons = GetChildren(lowerSection)[i + 1];
+                GameObject grayPlus = GetChildren(resourceButtons)[2];
+                GameObject bluePlus = GetChildren(resourceButtons)[4];
+
+                grayPlus.SetActive(false);
+                bluePlus.SetActive(true);
+            }
+        }
         // Reactivate the "+" button for resources after we get under the max number of that resource
         if (currentResourceNumbers[resourceNumber] == maxResourceNumbers[resourceNumber] - 1) {
             GameObject resourceButtons = GetChildren(lowerSection)[resourceNumber + 1];
