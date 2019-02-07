@@ -41,7 +41,6 @@ public class GameController : MonoBehaviour
         maxResourceNumbers = new int[5] {4, 4, 2, 1, 3};
         resourceCosts = new int[5] {20, 30, 50, 100, 25};
         coins = 200;
-        Debug.Log(coins.ToString());
         coinDisplay.text = coins.ToString();
         // Get ready to play the introduction video
 
@@ -106,7 +105,6 @@ public class GameController : MonoBehaviour
         desiredResource.SetActive(true);
 
         coins = coins - resourceCosts[resourceNumber];
-        Debug.Log("We currently have: " + coins + " coins.");
         coinDisplay.text = coins.ToString();
 
         currentResourceNumbers[resourceNumber]++;
@@ -151,7 +149,6 @@ public class GameController : MonoBehaviour
         desiredResource.SetActive(false);
 
         coins = coins + resourceCosts[resourceNumber];
-        Debug.Log("We currently have: " + coins + " coins.");
         coinDisplay.text = coins.ToString();
 
         // Reactivate the "+" button for resources that we can now afford
