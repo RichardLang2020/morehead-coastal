@@ -35,8 +35,7 @@ public class GameController : MonoBehaviour
     private bool firstChange;
     private static int difficulty;
 
-    void Start()
-    {
+    void Start() {
         currentResourceNumbers = new int[5];
         maxResourceNumbers = new int[5] {4, 4, 2, 1, 3};
         resourceCosts = new int[5] {20, 30, 50, 100, 25};
@@ -54,14 +53,12 @@ public class GameController : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
-    {
+    void Update() {
 
     }
 
-    public void NextScreen()
-    {
-        SceneManager.LoadScene("game");
+    public void NextScreen() {
+        SceneManager.LoadScene("mainmenu");
     }
 
     public void AddSandDune() {
@@ -183,12 +180,10 @@ public class GameController : MonoBehaviour
     }
 
     // Returns all immediate children for a given GameObject
-    private GameObject[] GetChildren(GameObject g)
-    {
+    private GameObject[] GetChildren(GameObject g) {
         GameObject[] output = new GameObject[g.transform.childCount];
 
-        for (int i = 0; i < output.Length; i++)
-        {
+        for (int i = 0; i < output.Length; i++) {
             output[i] = g.transform.GetChild(i).gameObject;
         }
 
@@ -196,19 +191,15 @@ public class GameController : MonoBehaviour
     }
 
     // Hides all other children of a given GameObject, and only shows the specified child
-    private void OnlyShowChild(GameObject section, int childNumber)
-    {
+    private void OnlyShowChild(GameObject section, int childNumber) {
         GameObject[] sectionChildren = GetChildren(section);
 
-        if (childNumber >= sectionChildren.Length)
-        {
+        if (childNumber >= sectionChildren.Length) {
             Debug.Log("You're trying to access a child that doesn't exist!");
         }
 
-        for (int i = 0; i < sectionChildren.Length; i++)
-        {
-            if (sectionChildren[i].activeInHierarchy)
-            {
+        for (int i = 0; i < sectionChildren.Length; i++) {
+            if (sectionChildren[i].activeInHierarchy) {
                 sectionChildren[i].SetActive(false);
             }
         }
@@ -225,8 +216,7 @@ public class GameController : MonoBehaviour
 
             string minutesString = currentMinutes.ToString();
             string secondsString = currentSeconds.ToString();
-            if (currentSeconds < 10)
-            {
+            if (currentSeconds < 10) {
                 secondsString = '0' + currentSeconds.ToString();
             }
             timerText.text = minutesString + ":" + secondsString;
