@@ -1163,16 +1163,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bbc9864a32395f048991754dfa5d9855, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  upperSection: {fileID: 1352551632}
-  middleSection: {fileID: 0}
-  lowerSection: {fileID: 1858822172}
-  canContinue: 0
-  sectionArray: []
-  currentlyActive: []
-  seenNatural: 0
-  seenManMade: 0
-  firstChange: 0
-  elementHighlights: {fileID: 0}
 --- !u!1 &794336071
 GameObject:
   m_ObjectHideFlags: 0
@@ -1371,6 +1361,7 @@ GameObject:
   m_Component:
   - component: {fileID: 832638647}
   - component: {fileID: 832638646}
+  - component: {fileID: 832638648}
   m_Layer: 0
   m_Name: EventController
   m_TagString: Untagged
@@ -1405,6 +1396,18 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &832638648
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 832638645}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ed05359574e8e29429f9301a24053c9e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  timeLeft: 30
 --- !u!1 &867607111
 GameObject:
   m_ObjectHideFlags: 0
