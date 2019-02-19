@@ -34,13 +34,33 @@ public class GameController : MonoBehaviour
     private int coins;
     private bool firstChange;
     private static int difficulty;
+    private int currentPhase;
 
     void Start() {
+        difficulty = ResourceInfoController.GetDifficulty();
         currentResourceNumbers = new int[5];
         maxResourceNumbers = new int[5] {4, 4, 2, 1, 3};
         resourceCosts = new int[5] {20, 30, 50, 100, 25};
-        coins = 200;
+        switch (difficulty) {
+            case 1:
+                coins = 230;
+                break;
+
+            case 2:
+                coins = 200;
+                break;
+
+            case 3:
+                coins = 170;
+                break;
+
+            default:
+                coins = 200;
+                break;
+        }
         coinDisplay.text = coins.ToString();
+        currentPhase = 1;
+
         // Get ready to play the introduction video
 
         // Confirm that the introduction video has finished, start swapping things into the main game

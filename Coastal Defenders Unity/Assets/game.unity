@@ -5717,8 +5717,8 @@ MonoBehaviour:
   videoPlayer: {fileID: 744652054}
   sprite: {fileID: 1214297672}
   duration: 0.5
-  timer: {fileID: 58172547}
-  fadeInText: {fileID: 1617526319}
+  timer: {fileID: 0}
+  fadeInText: {fileID: 975453605}
 --- !u!328 &744652054
 VideoPlayer:
   m_ObjectHideFlags: 0
