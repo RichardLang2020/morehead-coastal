@@ -144,10 +144,8 @@ public class ResourceInfoController: MonoBehaviour
     private void ActivateContinue() {
         GameObject[] lowerChildren = GetChildren(lowerSection);
         GameObject[] buttons = GetChildren(lowerChildren[0]);
-        GameObject grayButton = buttons[5];
-        GameObject redButton = buttons[6];
-
-        grayButton.SetActive(false);
+        GameObject redButton = buttons[5];
+        
         redButton.SetActive(true);
     }
 
