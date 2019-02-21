@@ -1116,6 +1116,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   image: {fileID: 1678346306}
   subtitles: {fileID: 1854180881}
+  nextScene: resourceInfo
   videoPlayer: {fileID: 1678346308}
   audioSource: {fileID: 1678346310}
 --- !u!82 &1678346310

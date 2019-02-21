@@ -20,6 +20,7 @@ public class howToPlayVideo : MonoBehaviour
 
     public RawImage image;
     public Text subtitles;
+    public string nextScene;
 
     public UnityEngine.Video.VideoPlayer videoPlayer;
     private VideoSource videoSource;
@@ -61,13 +62,13 @@ public class howToPlayVideo : MonoBehaviour
         Debug.Log("Playing Video");
         while (videoPlayer.isPlaying || !subtitles.GetComponent<subtitleTiming>().textComplete)
         {
-            Debug.Log(subtitles.GetComponent<subtitleTiming>().textComplete);
+            //Debug.Log(subtitles.GetComponent<subtitleTiming>().textComplete);
             //Debug.LogWarning("Video Time: " + Mathf.FloorToInt((float)videoPlayer.time));
             yield return null;
         }
 
         Debug.Log("Done Playing Video");
-        SceneManager.LoadScene("resourceInfo");
+        SceneManager.LoadScene(nextScene);
     }
 
     // Update is called once per frame
