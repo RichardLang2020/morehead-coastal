@@ -78,7 +78,7 @@ public class GameController : MonoBehaviour
     }
 
     public void NextScreen() {
-        SceneManager.LoadScene("mainmenu");
+        SceneManager.LoadScene("gameEnd");
     }
 
     public void AddSandDune() {
@@ -244,6 +244,7 @@ public class GameController : MonoBehaviour
             secondsRemaining--;
             StartCoroutine(TimeStall(timerText, secondsRemaining, 1));
         } else {
+            SceneManager.LoadScene("gameEnd");
             timerText.text = "Finished!";
             Debug.Log("Timer finished!");
         }
