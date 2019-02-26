@@ -2899,8 +2899,6 @@ GameObject:
   - component: {fileID: 1465726570}
   - component: {fileID: 1465726569}
   - component: {fileID: 1465726568}
-  - component: {fileID: 1465726567}
-  - component: {fileID: 1465726566}
   m_Layer: 5
   m_Name: Canvas
   m_TagString: Untagged
@@ -2930,43 +2928,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 800, y: 1422}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &1465726566
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1465726564}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5fa6f25a5dbbf534cb63bbae43032dc8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  backdrop: {fileID: 0}
-  text: {fileID: 0}
-  videoPlayer: {fileID: 0}
-  videoClips:
-  - {fileID: 32900000, guid: 55ef5ab03d68b1a4c80db4ec75d27a33, type: 3}
-  - {fileID: 32900000, guid: ed0692aeaaecb674cb41c3542a2f2f84, type: 3}
-  - {fileID: 32900000, guid: 1b1ab96a9919d4e41b8edc0b00f60fc0, type: 3}
-  hurricanePath:
-  - {fileID: 32900000, guid: ced2115e5d06d4e43adb2ba47738b107, type: 3}
-  - {fileID: 32900000, guid: 207d6b9038a82704099cef413dd1ae8d, type: 3}
-  - {fileID: 32900000, guid: aa49d77a49151d449b69f15125cc9a05, type: 3}
-  hurricaneImage: {fileID: 0}
-  hurricanePlayer: {fileID: 0}
-  image: {fileID: 0}
-  duration: 0.5
---- !u!114 &1465726567
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1465726564}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 419410775f4d593469735338daa8d1d4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &1465726568
 MonoBehaviour:
   m_ObjectHideFlags: 0
