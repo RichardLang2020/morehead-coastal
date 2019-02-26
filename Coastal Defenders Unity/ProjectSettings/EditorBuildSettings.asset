@@ -23,3 +23,6 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/resourceInfo.unity
     guid: ed99f9609d41d9849a77ecb3d9cd4836
+  - enabled: 1
+    path: Assets/gameEnd.unity
+    guid: ac727397623b44f43b311a5d57cff64e

@@ -28,7 +28,7 @@ public class GameController : MonoBehaviour
      * 3 - Floodgates
      * 4 - Sandgrass
      */
-    private int[] currentResourceNumbers;
+    private static int[] currentResourceNumbers;
     private int[] maxResourceNumbers;
     private int[] resourceCosts;
     private int coins;
@@ -109,6 +109,10 @@ public class GameController : MonoBehaviour
     }
     public void RemoveSeaGrass() {
         removeResource(4);
+    }
+
+    public static int[] GetResourceNumbers() {
+        return currentResourceNumbers;
     }
 
     // Adds one of the given resource number - these numbers are -1 from the values in the currentResourceNumbers array
