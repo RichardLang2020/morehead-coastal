@@ -3753,7 +3753,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   timerText: {fileID: 488959636}
-  duration: 5
+  duration: 180
   nextScene: gameEnd
   done: 0
 --- !u!1 &489102409
