@@ -51,6 +51,18 @@ public class GameEndController : MonoBehaviour {
             }
         }
     }
+    private int HumanDefense() {
+        int humanDefenseScore = currentResourceNumbers[0] * 2 + currentResourceNumbers[1] * 2 + currentResourceNumbers[2] * 10
+            + currentResourceNumbers[3] * 30 + currentResourceNumbers[4] * 3;
+
+        return humanDefenseScore;
+    }
+    private int resourceDefense() {
+        int resourceDefenseScore = currentResourceNumbers[0] * 2 + currentResourceNumbers[1] * 2 + currentResourceNumbers[2] * 10
+            + currentResourceNumbers[3] * 30 + currentResourceNumbers[4] * 3;
+
+        return resourceDefenseScore;
+    }
 
     // Returns all immediate children for a given GameObject
     private GameObject[] GetChildren(GameObject g) {
