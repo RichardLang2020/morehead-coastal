@@ -51,6 +51,24 @@ public class GameEndController : MonoBehaviour {
             }
         }
     }
+    private void RemoveResources() {
+        GameObject mainGame = GetChildren(upperSection)[0];
+
+        for (int resourceNumber = 0; resourceNumber < currentResourceNumbers.Length; resourceNumber++) {
+            GameObject resourceArray = GetChildren(mainGame)[resourceNumber + 1];
+
+            for (int i = 0; i < currentResourceNumbers[resourceNumber]; i++) {
+                GameObject desiredResource = GetChildren(resourceArray)[i];
+
+                int probDestroyed = Random.Range(1, 100);
+                Debug.Log(probDestroyed);
+                if(probDestroyed > 80) {
+                    desiredResource.SetActive(false);
+                }
+            }
+        }
+    }
+
     private int HumanDefense() {
         int humanDefenseScore = currentResourceNumbers[0] * 2 + currentResourceNumbers[1] * 2 + currentResourceNumbers[2] * 10
             + currentResourceNumbers[3] * 30 + currentResourceNumbers[4] * 3;
@@ -103,6 +121,14 @@ public class GameEndController : MonoBehaviour {
         }
         
         Debug.Log("Done Playing Video");
+
+        RemoveResources();
+        StartCoroutine(TimeStall(15));
+
         SceneManager.LoadScene("endgame");
+    }
+    IEnumerator TimeStall(int stallTime) {
+        Debug.Log("Time Stall began");
+        yield return new WaitForSeconds(stallTime);
     }
 }
