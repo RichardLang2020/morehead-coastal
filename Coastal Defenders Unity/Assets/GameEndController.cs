@@ -13,6 +13,11 @@ public class GameEndController : MonoBehaviour {
     public UnityEngine.Video.VideoPlayer hurricanePlayer;
     public RawImage hurricaneImage;
 
+    public static int[] aDefense;
+    public static int[] bDefense;
+    public static int[] cDefense;
+    public int wipeRoll;
+
     /*
      * 0 - Sand Dunes
      * 1 - Oyster Reefs
@@ -29,6 +34,12 @@ public class GameEndController : MonoBehaviour {
         if(currentResourceNumbers == null) {
             currentResourceNumbers = new int[5] { 1, 1, 1, 1, 1 };
         }
+
+        aDefense = new int[] {2, 11, 3, 6, 8};
+        bDefense = new int[] {7, 4, 6, 16, 3};
+        cDefense = new int[] {3, 1, 9, 25, 4};
+        wipeRoll = WipeChance();
+
         LoadResources();
         StartCoroutine(playVideo());
     }
@@ -60,15 +71,41 @@ public class GameEndController : MonoBehaviour {
             for (int i = 0; i < currentResourceNumbers[resourceNumber]; i++) {
                 GameObject desiredResource = GetChildren(resourceArray)[i];
 
-                int probDestroyed = Random.Range(1, 100);
-                Debug.Log(probDestroyed);
-                if(probDestroyed > 80) {
+                int destructionRoll = Random.Range(1, 100);
+                Debug.Log(destructionRoll);
+                if(destructionRoll > wipeRoll) {
                     desiredResource.SetActive(false);
                 }
             }
         }
     }
 
+    private int WipeChance() {
+        int aTotalDefense = 0;
+        int bTotalDefense = 0;
+        int cTotalDefense = 0;
+
+        for (int i = 0; i < currentResourceNumbers.Length; i++)
+        {
+            aTotalDefense += currentResourceNumbers[i] * aDefense[i];
+            bTotalDefense += currentResourceNumbers[i] * bDefense[i];
+            cTotalDefense += currentResourceNumbers[i] * cDefense[i];
+        }
+
+        int maximumScore = aTotalDefense;
+        if (bTotalDefense > maximumScore)
+        {
+            maximumScore = bTotalDefense;
+        }
+        if (cTotalDefense > maximumScore)
+        {
+            maximumScore = cTotalDefense;
+        }
+
+        int wipeChance = (int)(maximumScore / 70.0) * 100;
+
+        return wipeChance;
+    }
     private int HumanDefense() {
         int humanDefenseScore = currentResourceNumbers[0] * 2 + currentResourceNumbers[1] * 2 + currentResourceNumbers[2] * 10
             + currentResourceNumbers[3] * 30 + currentResourceNumbers[4] * 3;
