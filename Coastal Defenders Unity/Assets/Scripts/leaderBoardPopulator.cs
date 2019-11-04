@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class leaderBoardPopulator : MonoBehaviour {
 
-    public string url = "localhost:4000/leaderboard/allscores";
+    public string url = "http://localhost:3306/coastaldefenders/scores";
     private Text leaderboards;
     private ScoreEntry[] scoreEntries;
     private string scoreText;
@@ -32,6 +32,7 @@ public class leaderBoardPopulator : MonoBehaviour {
         using (WWW www = new WWW(url))
         {
             yield return www;
+            Debug.Log(www.text);
             scoreEntries = JsonHelper.FromJson<ScoreEntry>(www.text);
             string scoretext = "";
             bool setScore = false;

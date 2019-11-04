@@ -6,7 +6,7 @@ using UnityEngine.UI;
 public class mySqlConnection : MonoBehaviour {
 
     // Use this for initialization
-    public string url = "localhost:4000/leaderboard/scores";
+    public string url = "http://localhost:3306/coastaldefenders/scores";
     public ScoreEntry[] scoreEntries;
     public Button yourButton;
 
@@ -27,6 +27,7 @@ public class mySqlConnection : MonoBehaviour {
     {
         using (WWW www = new WWW(url))
         {
+            Debug.Log(www.text);
             yield return www;
             scoreEntries = JsonHelper.FromJson<ScoreEntry>(www.text);
 
@@ -43,6 +44,7 @@ public static class JsonHelper
 {
     public static T[] FromJson<T>(string json)
     {
+        Debug.Log(json);
         Wrapper<T> wrapper = JsonUtility.FromJson<Wrapper<T>>(json);
         return wrapper.Items;
     }
@@ -78,4 +80,20 @@ public class ScoreEntry
     public int human_protection_score = 1;
     public int animal_protection_score = 1;
     public string created_at = "date";
+}
+
+class ScoreEntryComparer : IComparer<ScoreEntry>
+{
+    public int Compare(ScoreEntry x, ScoreEntry y)
+    {
+        // Invalid Cases
+        if (x == null || y == null)
+        {
+            return 0;
+        }
+        
+        // Main check
+        return x.total_score.CompareTo(y.total_score);
+
+    }
 }
