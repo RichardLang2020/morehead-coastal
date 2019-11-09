@@ -4161,7 +4161,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cf5c1bbe6e3f3a246872dc3011cdb3c8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  url: localhost:4000/leaderboard/allscores
 --- !u!1 &987922173
 GameObject:
   m_ObjectHideFlags: 0

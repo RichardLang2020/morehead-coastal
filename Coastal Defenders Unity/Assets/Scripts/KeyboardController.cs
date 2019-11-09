@@ -18,6 +18,7 @@ public class KeyboardController : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
+        scoreboard = new leaderBoardPopulator();
         slideButton.enabled = slideDisable;
         slide = true;
         trans = this.GetComponent<RectTransform>();
@@ -49,7 +50,7 @@ public class KeyboardController : MonoBehaviour {
         {
           int[] score_vals = scores.getScores();
             Debug.Log(score_vals);
-            StartCoroutine(Upload(output, score_vals[0], score_vals[1], score_vals[2], score_vals[3]));
+            Upload(output, score_vals[0], score_vals[1], score_vals[2], score_vals[3]);
         } else if((output.Length+1) <= 2)
         {
             output += val;
@@ -59,30 +60,18 @@ public class KeyboardController : MonoBehaviour {
     }
     IEnumerator Upload(string init, int total_score, int land_saved_score, int human_protection_score, int animal_protection_score)
     {
-        WWWForm form = new WWWForm();
-        form.AddField("initials", init);
-        form.AddField("total_score", total_score);
-        form.AddField("land_saved_score", land_saved_score);
-        form.AddField("human_protection_score", human_protection_score);
-        form.AddField("animal_protection_score", animal_protection_score);
+        ScoreEntry se = new ScoreEntry(init, total_score);
+        bool entrySuccess = CurrentLeaderboard.AddEntry(se);
+        
+        Debug.Log("Form upload complete!");
+        // scoreboard.getScoresAgain();
+        slide = !slide;
+        slideDisable = false;
+        slideButton.enabled = slideDisable;
+        initials.text = "";
+        output = "";
 
-        UnityWebRequest www = UnityWebRequest.Post("localhost:4000/leaderboardpost", form);
-        yield return www.SendWebRequest();
-
-        if (www.isNetworkError || www.isHttpError)
-        {
-            Debug.Log(www.error);
-        }
-        else
-        {
-            Debug.Log("Form upload complete!");
-            scoreboard.getScoresAgain();
-            slide = !slide;
-            slideDisable = false;
-            slideButton.enabled = slideDisable;
-            initials.text = "";
-            output = "";
-        }
+        return null;
     }
 
     // Update is called once per frame

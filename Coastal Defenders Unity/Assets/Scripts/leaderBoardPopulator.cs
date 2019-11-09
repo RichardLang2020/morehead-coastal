@@ -4,10 +4,9 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public class leaderBoardPopulator : MonoBehaviour {
-
-    public string url = "http://localhost:3306/coastaldefenders/scores";
+    
     private Text leaderboards;
-    private ScoreEntry[] scoreEntries;
+    private List<ScoreEntry> scoreEntries;
     private string scoreText;
     public static int scorePlace;
     // Use this for initialization
@@ -18,7 +17,7 @@ public class leaderBoardPopulator : MonoBehaviour {
         Debug.Log("TEST");
         Debug.Log(leaderboards.text);
         leaderboards.text = "Leaderboard";
-        StartCoroutine(getScores());
+        getScores();
     }
 
     public void getScoresAgain()
@@ -29,52 +28,46 @@ public class leaderBoardPopulator : MonoBehaviour {
 
     IEnumerator getScores()
     {
-        using (WWW www = new WWW(url))
+        scoreEntries = CurrentLeaderboard.GetLeaderboard();
+        Debug.Log("Just got scores from CurrentLeaderboard.cs");
+        Debug.Log(scoreEntries[0].player_initials);
+        string scoretext = "";
+        bool setScore = false;
+        for (int i = 0; i < scoreEntries.Count; i++)
         {
-            yield return www;
-            Debug.Log(www.text);
-            scoreEntries = JsonHelper.FromJson<ScoreEntry>(www.text);
-            string scoretext = "";
-            bool setScore = false;
-            for (int i = 0; i < scoreEntries.Length; i++)
+            if ((int)ScoreCalculator.netScore > (int)scoreEntries[i].total_score && !setScore)
             {
-                if ((int)ScoreCalculator.netScore > (int)scoreEntries[i].total_score && !setScore)
-                {
-                    scorePlace = i + 1;
-                    break;
-                }
-                else if (!setScore)
-                {
-                    scorePlace = i + 2;
-                }
+                scorePlace = i + 1;
+                break;
             }
-            Debug.Log(scoreEntries.Length);
-            Debug.Log("PLACE IN RANK");
-            Debug.Log(scorePlace);
-            int leaderBoardLength = 10;
-            if(scoreEntries.Length < 10)
+            else if (!setScore)
             {
-                leaderBoardLength = scoreEntries.Length;
+                scorePlace = i + 2;
             }
-            for (int i = 0; i < leaderBoardLength; i++)
-            {
-                if (i == leaderBoardLength-1)
-                {
-                    scoretext += " <size=30>" + (i + 1) + ".</size> " + scoreEntries[i].player_initials + "  " + scoreEntries[i].total_score;
-                }
-                else
-                {
-                    scoretext += " <size=30>" + (i + 1) + ".</size> " + scoreEntries[i].player_initials + "  " + scoreEntries[i].total_score + "\n";
-                }
-                    Debug.Log(i + ": " + scoreEntries[i].player_initials + ": " + scoreEntries[i].total_score);
-            }
-            Debug.Log("LEADERBOARD");
-            Debug.Log(leaderboards.text);
-            Debug.Log(scoretext);
-            leaderboards.text = scoretext;
-            scoreText = scoretext;
-
         }
+        Debug.Log(scoreEntries.Count);
+        Debug.Log("PLACE IN RANK");
+        Debug.Log(scorePlace);
+        int leaderBoardLength = 10;
+        for (int i = 0; i < leaderBoardLength; i++)
+        {
+            if (i == leaderBoardLength-1)
+            {
+                scoretext += " <size=30>" + (i + 1) + ".</size> " + scoreEntries[i].player_initials + "  " + scoreEntries[i].total_score;
+            }
+            else
+            {
+                scoretext += " <size=30>" + (i + 1) + ".</size> " + scoreEntries[i].player_initials + "  " + scoreEntries[i].total_score + "\n";
+            }
+                Debug.Log(i + ": " + scoreEntries[i].player_initials + ": " + scoreEntries[i].total_score);
+        }
+        Debug.Log("LEADERBOARD");
+        Debug.Log(leaderboards.text);
+        Debug.Log(scoretext);
+        leaderboards.text = scoretext;
+        scoreText = scoretext;
+
+        return null;
     }
 	
 	// Update is called once per frame

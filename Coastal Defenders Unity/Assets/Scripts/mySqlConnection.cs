@@ -80,6 +80,12 @@ public class ScoreEntry
     public int human_protection_score = 1;
     public int animal_protection_score = 1;
     public string created_at = "date";
+
+    public ScoreEntry(string initials, int score)
+    {
+        player_initials = initials;
+        total_score = score;
+    }
 }
 
 class ScoreEntryComparer : IComparer<ScoreEntry>
